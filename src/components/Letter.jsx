@@ -5,7 +5,7 @@ function Letter({ letterPosition, attemptValue }) {
   const { board, correctWord, currentAttempt } = useContext(AppContext);
   const letter = board[attemptValue][letterPosition]; /* letter in keyBox */
 
-  /* give colors to letters */
+  /* *********** coloring letters ***********/
   const correct =
     correctWord[letterPosition] ===
     letter; /* if letter in Word == to letter in keyBox */

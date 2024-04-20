@@ -1,8 +1,8 @@
 import './App.css';
 import Board from './components/Board';
 import Keyboard from './components/Keyboard';
-import { useState } from 'react';
-import { defaultBoard } from './DefaultBoard';
+import { useEffect, useState } from 'react';
+import { defaultBoard, generateWordSet } from './DefaultBoard';
 
 import { createContext } from 'react'; //allows me to create a global context for the app
 export const AppContext = createContext();
@@ -14,8 +14,15 @@ function App() {
     attempt: 0,
     letterPosition: 0,
   });
+  const [wordSet, setWordSet] = useState(new Set());
 
   const correctWord = 'RIGHT';
+
+  useEffect(() => {
+    generateWordSet().then((words) => {
+      setWordSet(words.wordSet); /* object returned in generateWordSet */
+    });
+  }, []);
 
   /* *******************************PRESS KEY FUNCTION************************** */
   const onSelectedLetter = (keyVal) => {
@@ -50,10 +57,24 @@ function App() {
   const onEnter = () => {
     if (currentAttempt.letterPosition !== 5)
       return; /* if not on last box of row, end function */
-    setCurrentAttempt({
-      attempt: currentAttempt.attempt + 1,
-      letterPosition: 0 /* move to the next row down below */,
-    });
+
+    let currentWord = '';
+    for (let i = 0; i < 5; i++) {
+      currentWord += board[currentAttempt.attempt][i];
+    } /* store guessed word in currentWord */
+
+    if (wordSet.has(currentWord.toLowerCase())) {
+      /* check if word exists in wordSet */
+      setCurrentAttempt({
+        attempt: currentAttempt.attempt + 1,
+        letterPosition: 0 /* move to the next row down below */,
+      });
+    } else {
+      alert('word not found');
+    }
+    if (currentWord === correctWord) {
+      alert('you won!');
+    }
   };
 
   return (
