@@ -15,6 +15,8 @@ function App() {
     letterPosition: 0,
   });
 
+  const correctWord = 'RIGHT';
+
   /* *******************************PRESS KEY FUNCTION************************** */
   const onSelectedLetter = (keyVal) => {
     if (currentAttempt.letterPosition > 4)
@@ -68,6 +70,7 @@ function App() {
           onSelectedLetter,
           onDelete,
           onEnter,
+          correctWord,
         }}>
         {/* everything inside this provider can access to the values*/}
         <div className="game">
