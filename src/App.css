@@ -115,8 +115,8 @@ nav h1 {
     font-size: 4vw;
     font-weight: 300;
     margin: 1vw;
-    height: 14vw;
-    width: 8vw;
+    height: 12vw;
+    width: 7vw;
     color: black;
     background-color: grey;
     border-radius: 3px;
@@ -147,7 +147,7 @@ nav h1 {
   }
 
   .board {
-    margin-top: 25vw;
+    margin-top: 15vw;
     display: block;
     justify-content: center;
     padding: 1vw;
