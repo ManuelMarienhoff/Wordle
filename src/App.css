@@ -114,9 +114,9 @@ nav h1 {
   .key {
     font-size: 4vw;
     font-weight: 300;
-    margin: 1vw;
+    margin: 0.5vw;
     height: 12vw;
-    width: 7vw;
+    width: 8vw;
     color: black;
     background-color: grey;
     border-radius: 3px;
