@@ -1,7 +1,7 @@
 import { useContext } from 'react'; /* needs to be imported in each file I want to use the global context */
 import { AppContext } from '../App';
 
-function Key({ keyVal, bigKey }) {
+function Key({ keyVal, bigKey, disabled }) {
   const { onSelectedLetter, onDelete, onEnter } =
     useContext(AppContext); /* import global values from context */
 
@@ -15,7 +15,10 @@ function Key({ keyVal, bigKey }) {
     }
   };
   return (
-    <div className="key" id={bigKey && 'big'} onClick={selectLetter}>
+    <div
+      className="key"
+      id={bigKey ? 'big' : disabled && 'disabled'}
+      onClick={selectLetter}>
       {keyVal}
     </div>
   );
