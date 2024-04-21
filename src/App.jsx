@@ -114,9 +114,27 @@ function App() {
       return;
     }
     /* if user gets past last attempt, game over and lose */
-    if (currentAttempt.attempt === 5) {
+    if (
+      wordSet.has(currentWord.toLowerCase()) &&
+      currentAttempt.attempt === 5
+    ) {
       setGameOver({ gameOver: true, guessedWord: false });
     }
+  };
+  /* *********************RESTART GAME FUNCTION ******************/
+
+  const resetGame = () => {
+    setBoard(defaultBoard);
+    setGameOver({ gameOver: false, guessedWord: false });
+    setCurrentAttempt({
+      attempt: 0,
+      letterPosition: 0,
+    });
+    setDisabledLetters([]);
+    generateWordSet().then((words) => {
+      setWordSet(words.wordSet);
+      setCorrectWord(words.todaysWord);
+    });
   };
 
   return (
@@ -137,7 +155,7 @@ function App() {
           disabledLetters,
           setDisabledLetters,
           gameOver,
-          setGameOver,
+          resetGame,
         }}>
         {/* everything inside this provider can access to the values*/}
         <Board />
