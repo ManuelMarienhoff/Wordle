@@ -2,13 +2,23 @@ import './App.css';
 import Board from './components/Board';
 import Keyboard from './components/Keyboard';
 import { useEffect, useState } from 'react';
-import { defaultBoard, generateWordSet } from './DefaultBoard';
-
 import { createContext } from 'react'; //allows me to create a global context for the app
-import GameOver from './GameOver';
+import GameOver from './components/GameOver';
+import wordBank from './wordleBank.txt';
+
 export const AppContext = createContext();
 
 function App() {
+  /* build the empty board */
+  const defaultBoard = [
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+    ['', '', '', '', ''],
+  ];
+
   /* ****************Board and currentAttempt******************** */
   const [board, setBoard] = useState(defaultBoard);
   const [currentAttempt, setCurrentAttempt] = useState({
@@ -21,12 +31,32 @@ function App() {
     gameOver: false,
     guessedWord: false,
   });
+  const [correctWord, setCorrectWord] = useState('');
 
-  const correctWord = 'RIGHT';
+  /* Store words in a Set bc it's faster to read when trying to find if word exists/is correct */
+  const generateWordSet = async () => {
+    let wordSet;
+    let todaysWord;
+    await fetch(wordBank)
+      .then((response) => response.text())
+      .then((result) => {
+        /* make an array of the words that are separated by line breaks */
+        const wordsArray = result.split('\n').map((word) => word.trim());
+        todaysWord =
+          wordsArray[
+            Math.floor(Math.random() * wordsArray.length)
+          ].toUpperCase(); /* get random element in the array */
+        wordSet = new Set(wordsArray);
+      });
+    console.log(todaysWord);
+    return { wordSet, todaysWord };
+  };
 
+  /* *********** Set Word of the day ************* */
   useEffect(() => {
     generateWordSet().then((words) => {
       setWordSet(words.wordSet); /* object returned in generateWordSet */
+      setCorrectWord(words.todaysWord); /* set Correct Word of the Day */
     });
   }, []);
 
