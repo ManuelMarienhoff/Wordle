@@ -140,11 +140,9 @@ function App() {
           setGameOver,
         }}>
         {/* everything inside this provider can access to the values*/}
-        <div className="game">
-          <Board />
-          {gameOver.gameOver ? <GameOver /> : <Keyboard />}{' '}
-          {/* if game is over show message, else show keyboard */}
-        </div>
+        <Board />
+        {gameOver.gameOver ? <GameOver /> : <Keyboard />}{' '}
+        {/* if game is over show message, else show keyboard */}
       </AppContext.Provider>
     </div>
   );

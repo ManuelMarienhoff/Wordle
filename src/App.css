@@ -24,7 +24,7 @@ nav h1 {
   font-size: 35px;
 }
 .board {
-  margin-top: 20px;
+  margin-top: 40px;
   display: block;
   justify-content: center;
   padding: 2px;
@@ -100,4 +100,70 @@ nav h1 {
 
 #error {
   background-color: #3a393c;
+}
+@media only screen and (max-width: 480px) {
+  .keyboard {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .key {
+    font-size: 3vw;
+    font-weight: 300;
+    margin: 1vw;
+    height: 10vw;
+    width: 6vw;
+    color: black;
+    background-color: grey;
+    border-radius: 3px;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+  }
+
+  #big {
+    width: 15vw;
+  }
+
+  nav {
+    width: 100%;
+    margin: 0;
+    padding: 2vw;
+    border-bottom: 1px solid grey;
+    display: grid;
+    place-items: center;
+  }
+
+  nav h1 {
+    margin: 0;
+    font-family: Helvetica, Arial, sans-serif;
+    color: white;
+    font-size: 5vw;
+  }
+
+  .board {
+    margin-top: 30vw;
+    display: block;
+    justify-content: center;
+    padding: 1vw;
+    align-items: center;
+  }
+
+  .letter {
+    border: 1px solid grey;
+    border-radius: 5px;
+    width: 12vw;
+    height: 12vw;
+    font-size: 3vw;
+    font-weight: bolder;
+    margin-left: 1vw;
+    font-family: Arial, Helvetica, sans-serif;
+    display: grid;
+    place-items: center;
+  }
 }
