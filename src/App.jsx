@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { defaultBoard, generateWordSet } from './DefaultBoard';
 
 import { createContext } from 'react'; //allows me to create a global context for the app
+import GameOver from './GameOver';
 export const AppContext = createContext();
 
 function App() {
@@ -16,6 +17,10 @@ function App() {
   });
   const [wordSet, setWordSet] = useState(new Set());
   const [disabledLetters, setDisabledLetters] = useState([]);
+  const [gameOver, setGameOver] = useState({
+    gameOver: false,
+    guessedWord: false,
+  });
 
   const correctWord = 'RIGHT';
 
@@ -73,8 +78,14 @@ function App() {
     } else {
       alert('word not found');
     }
+    /* if user guesses word, game over and win */
     if (currentWord === correctWord) {
-      alert('you won!');
+      setGameOver({ gameOver: true, guessedWord: true });
+      return;
+    }
+    /* if user gets past last attempt, game over and lose */
+    if (currentAttempt.attempt === 5) {
+      setGameOver({ gameOver: true, guessedWord: false });
     }
   };
 
@@ -95,11 +106,14 @@ function App() {
           correctWord,
           disabledLetters,
           setDisabledLetters,
+          gameOver,
+          setGameOver,
         }}>
         {/* everything inside this provider can access to the values*/}
         <div className="game">
           <Board />
-          <Keyboard />
+          {gameOver.gameOver ? <GameOver /> : <Keyboard />}{' '}
+          {/* if game is over show message, else show keyboard */}
         </div>
       </AppContext.Provider>
     </div>
